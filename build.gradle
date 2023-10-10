@@ -13,11 +13,6 @@ application {
     mainClass.set("is.test.minimal.ui.AppPanel")
 }
 
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = "UTF-8"
-    options.deprecation = true
-}
-
 jlink {
     imageName.set(project.name)
     moduleName.set(application.mainModule)
@@ -25,20 +20,6 @@ jlink {
 
     jpackage {
         imageName = "Minimal"
-        appVersion = project.version.replace("-SNAPSHOT", "")
-        if (org.gradle.internal.os.OperatingSystem.current().linux) {
-            installerType = "deb"
-            installerOptions = [
-                    "--resource-dir", "build/jpackage/Minimal/lib",
-                    "--linux-shortcut"
-            ]
-        }
-        if (org.gradle.internal.os.OperatingSystem.current().windows) {
-            installerType = "msi"
-            installerOptions = [
-                    "--win-menu",
-                    "--win-shortcut"
-            ]
-        }
+        appVersion = project.version
     }
 }
